@@ -9,11 +9,3 @@ alembic
 httpx
 tigerbeetle
 
-#Dev requirements
-
-pytest
-pytest-asyncio
-
-ruff
-black
-mypy
