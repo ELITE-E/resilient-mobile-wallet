@@ -1,0 +1,19 @@
+fastapi
+uvicorn[standard]
+pydantic-settings
+
+sqlalchemy[asyncio]
+asyncpg
+alembic
+
+httpx
+tigerbeetle
+
+#Dev requirements
+
+pytest
+pytest-asyncio
+
+ruff
+black
+mypy

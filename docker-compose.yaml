@@ -1,0 +1,53 @@
+services:
+  api:
+    build: .
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      tigerbeetle:
+        condition: service_started
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: wallet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d wallet"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  tigerbeetle-init:
+    image: ghcr.io/tigerbeetle/tigerbeetle:latest
+    security_opt:
+      - seccomp=unconfined
+    volumes:
+      - tb-data:/data
+    entrypoint: ["/tigerbeetle"]
+    command: ["format", "--cluster=0", "--replica=0", "--replica-count=1", "/data/0_0.tigerbeetle"]
+
+  tigerbeetle:
+    image: ghcr.io/tigerbeetle/tigerbeetle:latest
+    security_opt:
+      - seccomp=unconfined
+    volumes:
+      - tb-data:/data
+    ports:
+      - "3000:3000"
+    depends_on:
+      tigerbeetle-init:
+        condition: service_completed_successfully
+    entrypoint: ["/tigerbeetle"]
+    command: ["start", "--addresses=0.0.0.0:3000", "/data/0_0.tigerbeetle"]
+
+volumes:
+  tb-data: {}
