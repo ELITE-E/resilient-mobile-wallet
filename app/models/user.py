@@ -12,7 +12,7 @@ class User(Base):
     full_name:Mapped[str]=mapped_column(String,nullable=False)
 
     phone_number:Mapped[str]=mapped_column(String,nullable=False,unique=True)
-    kycStatus:Mapped[str]=mapped_column(String,nullable=False,Default='PENDING')
+    kycStatus:Mapped[str]=mapped_column(String,nullable=False,default='PENDING')
 
     tb_account_id:Mapped[int]=mapped_column(UInt128Numeric,nullable=False,
                                             unique=True)
