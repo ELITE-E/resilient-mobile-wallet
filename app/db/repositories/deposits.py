@@ -1,8 +1,9 @@
-from sqlalchemy import select,update
+from sqlalchemy import func, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.deposit import Deposit
+
 
 class DuplicateCheckoutRequestIDError(Exception):
     pass
@@ -14,12 +15,12 @@ async def create_deposit_attempt(
         session:AsyncSession,
         deposit_id:str,
         user_id:str,
-    amount:int,
+        amount:int,
         checkout_request_id:str,
         merchant_request_id:str | None,
         )->Deposit:
     dep=Deposit(
-    id=deposit_id,
+        id=deposit_id,
         user_id=user_id,
         amount=amount,
         status="PENDING_CALLBACK",
@@ -45,7 +46,7 @@ async def update_deposit_status(session:AsyncSession,
         result =await session.execute(
             update(Deposit)
             .where(Deposit.checkout_request_id==checkout_request_id)
-            .values(status=status,receipt=receipt)
+            .values(status=status,receipt=receipt,updated_at=func.now())
             .returning(Deposit.id)
         )
     row = result.first()
@@ -61,7 +62,7 @@ async def store_callback_payload(
             result = await session.execute(
             update(Deposit)
             .where(Deposit.checkout_request_id == checkout_request_id)
-            .values(raw_callback_json=payload)
+            .values(raw_callback_json=payload,updated_at=func.now())
             .returning(Deposit.id)
         )
         if result.first() is None:

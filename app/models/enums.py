@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class kycStatus(str,Enum):
     PENDING="PENDIND"
     VERIFIED="VERIFIED"

@@ -1,14 +1,14 @@
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.session import SessionLocal
-from app.db.repositories.users import create_user, DuplicatePhoneError
 from app.db.repositories.deposits import (
-    create_deposit_attempt,
     DuplicateCheckoutRequestIDError,
-    update_deposit_status,
+    create_deposit_attempt,
     store_callback_payload,
+    update_deposit_status,
 )
+from app.db.repositories.users import DuplicatePhoneError, create_user
+from app.db.session import SessionLocal
+
 
 @pytest.mark.asyncio
 async def test_create_user_unique_phone():

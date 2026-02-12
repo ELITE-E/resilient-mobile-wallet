@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from sqlalchemy import String,DateTime,func,ForeignKey,BigInteger
+from sqlalchemy import BigInteger, DateTime, ForeignKey, String, func
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm import Mapped,mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
+
 
 class Deposit(Base):
     __tablename__="deposits"
