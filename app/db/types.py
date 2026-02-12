@@ -4,7 +4,8 @@ from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import Dialect
-from sqlalchemy.types import TypeDecorator,Numeric
+from sqlalchemy.types import Numeric, TypeDecorator
+
 
 class UInt128Numeric(TypeDecorator):
     """

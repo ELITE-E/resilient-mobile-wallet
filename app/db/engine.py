@@ -2,6 +2,7 @@ import os
 
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.pool import NullPool
+
 from app.settings.config import settings
 
 #Fix of error is coming from asyncpg trying to reuse a pooled connection after the loop is closed.

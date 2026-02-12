@@ -1,9 +1,9 @@
 import tigerbeetle as tb
-
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.user import User
+
 
 class DuplicatePhoneError(Exception):
     pass
