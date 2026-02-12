@@ -6,6 +6,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from app.db.base import Base
+from app.models import user,deposit
 from app.settings.config import settings
 
 from alembic import context
