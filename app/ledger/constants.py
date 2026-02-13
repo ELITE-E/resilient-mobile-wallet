@@ -1,0 +1,15 @@
+# Ledger IDs
+LEDGER_KES = 1
+
+# System Account IDs (fixed, reserved)
+MPESA_CLEARING_ACCOUNT_ID = 1
+FEES_REVENUE_ACCOUNT_ID = 2
+
+# Account Codes (must be non-zero)
+ACCOUNT_CODE_SYSTEM = 900
+ACCOUNT_CODE_WALLET = 100
+
+# Transfer Codes (must be non-zero)
+TRANSFER_CODE_MPESA_DEPOSIT = 100
+TRANSFER_CODE_P2P = 200
+TRANSFER_CODE_P2P_FEE = 201
